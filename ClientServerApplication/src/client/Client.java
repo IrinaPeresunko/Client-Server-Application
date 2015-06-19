@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Client {
 	
-	private final static int PORT = 8283; 
+	private final static int PORT = 8080; 
 	private BufferedReader in;
 	private PrintWriter out;
 	private Socket socket;

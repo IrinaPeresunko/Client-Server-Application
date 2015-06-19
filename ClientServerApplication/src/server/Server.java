@@ -14,7 +14,7 @@ import java.util.List;
 import client.Client;
 
 public class Server {
-	private List connections = Collections.synchronizedList(new ArrayList());
+	private List<Connection> connections = Collections.synchronizedList(new ArrayList());
 	
 	private ServerSocket server;
 
@@ -42,7 +42,7 @@ public class Server {
 			server.close();
 			
 			synchronized(connections) {
-				Iterator iter = connections.iterator();
+				Iterator<Connection> iter = connections.iterator();
 				while(iter.hasNext()) {
 					((Connection) iter.next()).close();
 				}
@@ -76,9 +76,9 @@ public class Server {
 		public void run() {
 			try {
 				name = in.readLine();
-	
+				System.err.println("!!!!!!! name = "+name);
 				synchronized(connections) {
-					Iterator iter = connections.iterator();
+					Iterator<Connection> iter = connections.iterator();
 					while(iter.hasNext()) {
 						((Connection) iter.next()).out.println(name + " cames now");
 					}
@@ -90,7 +90,7 @@ public class Server {
 					if(str.equals("exit")) break;
 					
 					synchronized(connections) {
-						Iterator iter = connections.iterator();
+						Iterator<Connection> iter = connections.iterator();
 						while(iter.hasNext()) {
 							((Connection) iter.next()).out.println(name + ": " + str);
 						}
@@ -98,7 +98,7 @@ public class Server {
 				}
 				
 				synchronized(connections) {
-					Iterator iter = connections.iterator();
+					Iterator<Connection> iter = connections.iterator();
 					while(iter.hasNext()) {
 						((Connection) iter.next()).out.println(name + " has left");
 					}
